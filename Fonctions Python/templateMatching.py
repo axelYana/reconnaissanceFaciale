@@ -11,7 +11,7 @@ w, h = template.shape[::-1]
 methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR',
             'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
 
-meth = methods[3]
+meth = methods[0]
 img = img2.copy()
 method = eval(meth)
 
@@ -34,11 +34,12 @@ plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
 if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
     threshold = min_val*1.2
 else:
-    threshold = max_val*0.8
+    threshold = max_val*0.89
 
 loc = np.where( res >= threshold)
 for pt in zip(*loc[::-1]):
     cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (255,255,255), 2)
+
 plt.subplot(122),plt.imshow(img,cmap = 'gray')
 plt.title('Detected Points'), plt.xticks([]), plt.yticks([])
 plt.suptitle(meth)
